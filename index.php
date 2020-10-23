@@ -1,4 +1,5 @@
 <?php
-echo "hello from git 12";
+echo "hello from git 12\n";
 echo "eddit";
+
 ?>
