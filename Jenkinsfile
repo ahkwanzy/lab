@@ -16,9 +16,9 @@ pipeline {
 				stage('Deploy') {
 					agent any
 					steps {
-						sh '/var/lib/jenkins/workspace/lab/jenkins/scripts/deploy.sh'
+						sh './jenkins/scripts/deploy.sh'
 						input message: 'Finished using the web site? (Click "Proceed" to continue)'
-						sh '/var/lib/jenkins/workspace/lab/jenkins/scripts/kill.sh'
+						sh './jenkins/scripts/kill.sh'
 					}
 				}
 				stage('Headless Browser Test') {
