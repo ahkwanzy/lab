@@ -5,6 +5,11 @@ pipeline {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
 			}
+			post {
+				always{
+					dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+				}
+			}
 		}
 		
 		stage('Integration UI Test') {
@@ -15,6 +20,11 @@ pipeline {
 						sh 'mvn -B -DskipTests clean package'
 						sh 'mvn test'
 					}
+					post {
+						always {
+							junit 'target/surefire-reports/*.xml'
+						}
+					}
 				}
 			}
 		}
@@ -22,13 +32,12 @@ pipeline {
 			steps {
                 sh 'phpunit --log-junit logs/unitreport.xml -c tests/phpunit.xml tests'
             }
+			post {
+				always{
+					junit testResults: 'logs/unitreport.xml'
+				}
+			}
 		}
 	}	
-	post {
-		always{
-			junit 'target/surefire-reports/*.xml'
-			dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-			junit testResults: 'logs/unitreport.xml'
-		}
-	}
+	
 }
