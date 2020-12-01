@@ -1,6 +1,6 @@
 pipeline {
 	agent any
-	stages {
+	/** stages {
 		stage('OWASP DependencyCheck') {
 			steps {
 				dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'Default'
@@ -11,7 +11,7 @@ pipeline {
 				}
 			}
 		}
-		
+		**/
 		stage('Integration UI Test') {
 			parallel {
 				stage('Headless Browser Test') {
