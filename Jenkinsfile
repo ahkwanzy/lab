@@ -53,8 +53,7 @@ pipeline {
         }
         stage ('Analysis') {
             steps {
-                sh 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd
-                findbugs:findbugs'
+                sh 'mvn --batch-mode -V -U -e checkstyle:checkstyle pmd:pmd pmd:cpd findbugs:findbugs'
             }
         }
         post {
@@ -62,8 +61,7 @@ pipeline {
                 junit testResults: '**/target/surefire-reports/TEST-*.xml'
                 recordIssues enabledForFailure: true, tools: [mavenConsole(), java(), javaDoc()]
                 recordIssues enabledForFailure: true, tool: checkStyle()
-                recordIssues enabledForFailure: true, tool: spotBugs(pattern:
-                '**/target/findbugsXml.xml')
+                recordIssues enabledForFailure: true, tool: spotBugs(pattern: '**/target/findbugsXml.xml')
                 recordIssues enabledForFailure: true, tool: cpd(pattern: '**/target/cpd.xml')
                 recordIssues enabledForFailure: true, tool: pmdParser(pattern: '**/target/pmd.xml')
             }
