@@ -48,8 +48,7 @@ pipeline {
         }
         stage ('Build') {
             steps {
-                sh 'mvn --batch-mode -V -U -e clean verify -Dsurefire.useFile=false -
-                Dmaven.test.failure.ignore'
+                sh 'mvn --batch-mode -V -U -e clean verify -Dsurefire.useFile=false -Dmaven.test.failure.ignore'
             }
         }
         stage ('Analysis') {
